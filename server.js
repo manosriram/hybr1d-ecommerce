@@ -12,8 +12,12 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/auth", require("./routes/auth"));
-app.use("/api/buyer", isauth, require("./routes/buyer"));
-app.use("/api/seller", isauth, require("./routes/seller"));
+app.use("/api/buyer", isauth.isAuthenticatedBuyer, require("./routes/buyer"));
+app.use(
+  "/api/seller",
+  isauth.isAuthenticatedSeller,
+  require("./routes/seller")
+);
 app.listen(port, () => console.log(`server at ${port}`));
 
 module.exports = app;
